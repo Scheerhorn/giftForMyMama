@@ -16,6 +16,11 @@ color: #c2623d;
 margin-bottom: 20px;
 }
 
+label {
+font-weight: bold;
+color: #a14e2c;
+}
+
 input {
 padding: 10px;
 width: 300px;
@@ -53,4 +58,5 @@ margin: 10px auto;
 padding: 10px;
 width: 80%;
 border-radius: 8px;
+font-size: 1.1em;
 }
