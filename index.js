@@ -14,46 +14,46 @@ const list = document.getElementById('thingsList');
 
 // Fetch and display all entries
 async function fetchThings() {
-  const { data, error } = await supabase
+    const { data, error } = await supabase
     .from('data')
     .select('thing_done, submitted_by')
     .order('created_at', { ascending: false });
 
-  if (error) {
+    if (error) {
     status.textContent = 'Error fetching data.';
     console.error(error);
     return;
-  }
+    }
 
-  list.innerHTML = '';
-  data.forEach(item => {
+    list.innerHTML = '';
+    data.forEach(item => {
     const li = document.createElement('li');
     li.innerHTML = `"${item.thing_done}" — <em>Submitted by: ${item.submitted_by || 'Anonymous'}</em>`;
     list.appendChild(li);
-  });
+    });
 }
 
 // Insert new entry
 async function insertThing() {
-  const thing = thingInput.value.trim();
-  const name = nameInput.value.trim() || 'Anonymous';
-  if (!thing) return;
+    const thing = thingInput.value.trim();
+    const name = nameInput.value.trim() || 'Anonymous';
+    if (!thing) return;
 
-  status.textContent = 'Submitting...';
+    status.textContent = 'Submitting...';
 
-  const { error } = await supabase
+    const { error } = await supabase
     .from('data')
     .insert([{ thing_done: thing, submitted_by: name }]);
 
-  if (error) {
+    if (error) {
     status.textContent = 'Error inserting data.';
     console.error(error);
-  } else {
+    } else {
     status.textContent = 'Added!';
     thingInput.value = '';
     nameInput.value = '';
     fetchThings();
-  }
+    }
 }
 
 // Event listener
@@ -61,4 +61,3 @@ button.addEventListener('click', insertThing);
 
 // Load items on page load
 fetchThings();
-
